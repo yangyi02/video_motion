@@ -5,8 +5,11 @@ import pickle
 import matplotlib.pyplot as plt
 
 
-def get_diff_idx(input_dir='robot-64', meta_file='robot_64_meta.pkl', output_meta_file='robot_64_meta_2.pkl'):
-    diff_file = open('./robot_64_diff', 'w')
+def get_diff_idx():
+    input_dir = '/home/yi/Downloads/robot-64'
+    meta_file = 'robot_64_meta.pkl'
+    output_meta_file = 'robot_64_meta_2.pkl'
+    diff_file = open('robot_64_diff', 'w')
     meta = pickle.load(open(meta_file))
     for k, v in meta.iteritems():
         image_dir, sub_dir, file_names = v[0], v[1], v[2]

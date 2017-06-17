@@ -5,7 +5,10 @@ import pickle
 import matplotlib.pyplot as plt
 
 
-def get_diff_idx(input_dir='mpii-128', meta_file='mpii_meta.pkl', output_meta_file='mpii_meta_2.pkl'):
+def get_diff_idx():
+    input_dir = '/home/yi/Downloads/mpii-64'
+    meta_file = 'mpii_meta.pkl'
+    output_meta_file = 'mpii_meta_2.pkl'
     diff_file = open('./mpii_diff', 'w')
     meta = pickle.load(open(meta_file))
     for k, v in meta.iteritems():
@@ -32,7 +35,7 @@ def get_diff_idx(input_dir='mpii-128', meta_file='mpii_meta.pkl', output_meta_fi
 
 
 def display(im_old, im, im_diff):
-    img_size = 128
+    img_size = 64
     width, height = get_img_size(1, 3, img_size)
     img = numpy.ones((height, width, 3))
 
