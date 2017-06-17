@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 INPUT_DIR=/media/yi/DATA/data-orig/robot
-OUTPUT_DIR=../robot/robot-64
-FILE_LIST=../robot/robot_file_list
+OUTPUT_DIR=/home/yi/Downloads/robot-64
+FILE_LIST=../robot/robot_file.list
 SIZE=64
 
 # python create_file_list.py --input_dir=${INPUT_DIR} --output_file=${FILE_LIST}

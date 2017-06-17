@@ -3,6 +3,8 @@
 *.h5
 *.pyc
 *.pth
+*.pkl
+*.list
 model/
 robot-64/
 robot-128/
