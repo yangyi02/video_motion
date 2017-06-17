@@ -15,8 +15,8 @@ logging.basicConfig(format='[%(levelname)s %(asctime)s %(filename)s:%(lineno)s] 
                             level=logging.INFO)
 
 
-def validate(args, model, m_dict, reverse_m_dict, m_kernel, best_test_loss):
-    test_loss = test_unsupervised(args, model, m_dict, reverse_m_dict, m_kernel)
+def validate(args, model, meta, m_kernel, best_test_loss):
+    test_loss = test_unsupervised(args, model, meta, m_kernel)
     if test_loss <= best_test_loss:
         logging.info('model save to %s', os.path.join(args.save_dir, 'final.pth'))
         with open(os.path.join(args.save_dir, 'final.pth'), 'w') as handle:
@@ -95,7 +95,7 @@ def train_unsupervised(args, model, meta, m_kernel):
         logging.info('epoch %d, training loss: %.2f, average training loss: %.2f', epoch, loss.data[0], ave_loss)
         if (epoch+1) % args.test_interval == 0:
             logging.info('epoch %d, testing', epoch)
-            best_test_loss = validate(args, model, m_dict, reverse_m_dict, m_kernel, best_test_loss)
+            best_test_loss = validate(args, model, meta, m_kernel, best_test_loss)
     return model
 
 

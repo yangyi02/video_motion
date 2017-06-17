@@ -3,7 +3,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 
-def visualize(im_input_last, im_output, pred, pred_motion, disappear, m_range, m_dict, reverse_m_dict):
+def visualize(im_input_last, im_output, im_pred, pred_motion, disappear, m_range, reverse_m_dict):
     img_size = im_input_last.size(2)
     width, height = get_img_size(2, 4, img_size)
     img = numpy.ones((height, width, 3))
@@ -20,7 +20,7 @@ def visualize(im_input_last, im_output, pred, pred_motion, disappear, m_range, m
     x1, y1, x2, y2 = get_img_coordinate(1, 3, img_size)
     img[y1:y2, x1:x2, :] = im_diff
 
-    pred = pred[0].cpu().data.numpy().transpose(1, 2, 0)
+    pred = im_pred[0].cpu().data.numpy().transpose(1, 2, 0)
     pred[pred > 1] = 1
     pred[pred < 0] = 0
     x1, y1, x2, y2 = get_img_coordinate(2, 2, img_size)
@@ -34,8 +34,6 @@ def visualize(im_input_last, im_output, pred, pred_motion, disappear, m_range, m
     x1, y1, x2, y2 = get_img_coordinate(2, 4, img_size)
     img[y1:y2, x1:x2, :] = disappear
 
-    # This line assumes disappeared pixels have motion 0, which should be changed in the future.
-    pred_motion[pred_motion == len(m_dict)] = m_dict[(0, 0)]
     pred_motion = label2flow(pred_motion[0].cpu().data.numpy().squeeze(), m_range, reverse_m_dict)
     x1, y1, x2, y2 = get_img_coordinate(2, 1, img_size)
     img[y1:y2, x1:x2, :] = pred_motion

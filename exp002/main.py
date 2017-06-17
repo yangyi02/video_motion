@@ -15,8 +15,8 @@ logging.basicConfig(format='[%(levelname)s %(asctime)s %(filename)s:%(lineno)s] 
                             level=logging.INFO)
 
 
-def validate(args, model, m_dict, reverse_m_dict, m_kernel, best_test_loss):
-    test_loss = test_unsupervised(args, model, m_dict, reverse_m_dict, m_kernel)
+def validate(args, model, meta, m_kernel, reverse_m_dict, best_test_loss):
+    test_loss = test_unsupervised(args, model, meta, m_kernel, reverse_m_dict)
     if test_loss <= best_test_loss:
         logging.info('model save to %s', os.path.join(args.save_dir, 'final.pth'))
         with open(os.path.join(args.save_dir, 'final.pth'), 'w') as handle:
@@ -26,7 +26,7 @@ def validate(args, model, m_dict, reverse_m_dict, m_kernel, best_test_loss):
     return best_test_loss
 
 
-def test_unsupervised(args, model, meta, m_kernel):
+def test_unsupervised(args, model, meta, m_kernel, reverse_m_dict):
     m_range = args.motion_range
     test_loss = []
     for epoch in range(args.test_epoch):
@@ -37,14 +37,12 @@ def test_unsupervised(args, model, meta, m_kernel):
             im_input, im_output = im_input.cuda(), im_output.cuda()
         motion, disappear = model(im_input)
         im_input_last = im_input[:, -3:, :, :]
-        pred_im = construct_image(im_input_last, motion, disappear, m_range, m_kernel)
-        pred = pred_im[:, :, m_range:-m_range, m_range:-m_range]
-        gt = im_output[:, :, m_range:-m_range, m_range:-m_range]
-        loss = torch.abs(pred - gt).sum()
+        im_pred = construct_image(im_input_last, motion, disappear, m_range, m_kernel)
+        loss = torch.abs(im_pred - im_output).sum()
         if args.display:
             m_range = args.motion_range
             pred_motion = motion.max(1)[1]
-            visualize(im_input_last, im_output, pred_im, pred_motion, disappear, m_range, m_dict, reverse_m_dict)
+            visualize(im_input_last, im_output, im_pred, pred_motion, disappear, m_range, reverse_m_dict)
         test_loss.append(loss.data[0])
     test_loss = numpy.mean(numpy.asarray(test_loss))
     logging.info('average testing loss: %.2f', test_loss)
@@ -52,24 +50,20 @@ def test_unsupervised(args, model, meta, m_kernel):
 
 
 def construct_image(im, motion, disappear, m_range, m_kernel):
-    padding = m_range
     appear_mask = 1 - disappear
     im = im * appear_mask.expand_as(im)
     mask = F.softmax(motion)
-    height = im.size(2) - 2 * m_range + 2 * padding
-    width = im.size(3) - 2 * m_range + 2 * padding
-    im_channel = im.size(1)
-    pred = Variable(torch.Tensor(im.size(0), im_channel, height, width))
+    pred = Variable(torch.Tensor(im.size(0), im.size(1), im.size(2), im.size(3)))
     if torch.cuda.is_available():
         pred = pred.cuda()
-    for i in range(im_channel):
+    for i in range(im.size(1)):
         im_expand = im[:, i, :, :].unsqueeze(1).expand_as(mask) * mask
         for j in range(im.size(0)):
-            pred[j, i, :, :] = F.conv2d(im_expand[j, :, :, :].unsqueeze(0), m_kernel, None, 1, padding)
+            pred[j, i, :, :] = F.conv2d(im_expand[j, :, :, :].unsqueeze(0), m_kernel, None, 1, m_range)
     return pred
 
 
-def train_unsupervised(args, model, meta, m_kernel):
+def train_unsupervised(args, model, meta, m_kernel, reverse_m_dict):
     m_range = args.motion_range
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
     train_loss = []
@@ -83,9 +77,8 @@ def train_unsupervised(args, model, meta, m_kernel):
             im_input, im_output = im_input.cuda(), im_output.cuda()
         motion, disappear = model(im_input)
         im_input_last = im_input[:, -3:, :, :]
-        pred = construct_image(im_input_last, motion, disappear, m_range, m_kernel, padding=0)
-        gt = im_output[:, :, m_range:-m_range, m_range:-m_range]
-        loss = torch.abs(pred - gt).sum()
+        im_pred = construct_image(im_input_last, motion, disappear, m_range, m_kernel)
+        loss = torch.abs(im_pred - im_output).sum()
         loss.backward()
         optimizer.step()
         train_loss.append(loss.data[0])
@@ -95,7 +88,7 @@ def train_unsupervised(args, model, meta, m_kernel):
         logging.info('epoch %d, training loss: %.2f, average training loss: %.2f', epoch, loss.data[0], ave_loss)
         if (epoch+1) % args.test_interval == 0:
             logging.info('epoch %d, testing', epoch)
-            best_test_loss = validate(args, model, m_dict, reverse_m_dict, m_kernel, best_test_loss)
+            best_test_loss = validate(args, model, meta, m_kernel, reverse_m_dict, best_test_loss)
     return model
 
 
@@ -112,10 +105,10 @@ def main():
         model = torch.nn.DataParallel(model).cuda()
         m_kernel = m_kernel.cuda()
     if args.train:
-        model = train_unsupervised(args, model, meta, m_kernel)
+        model = train_unsupervised(args, model, meta, m_kernel, reverse_m_dict)
     if args.test:
         model.load_state_dict(torch.load(args.init_model_path))
-        test_unsupervised(args, model, meta, m_kernel)
+        test_unsupervised(args, model, meta, m_kernel, reverse_m_dict)
 
 if __name__ == '__main__':
     main()

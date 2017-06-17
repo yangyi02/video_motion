@@ -25,7 +25,7 @@ def motion_dict(m_range):
     return m_dict, reverse_m_dict, m_kernel
 
 
-def get_meta(args, meta_file='../data/mpii/mpii_meta.pkl', mpii_dir='../data/mpii/mpii-64'):
+def get_meta(args, meta_file='../data/mpii/mpii_meta.pkl', mpii_dir='/home/yi/Downloads/mpii-64'):
     meta = pickle.load(open(meta_file))
     new_meta = {}
     cnt = 0
@@ -44,7 +44,7 @@ def get_meta(args, meta_file='../data/mpii/mpii_meta.pkl', mpii_dir='../data/mpi
 
 
 def generate_batch(args, meta):
-    batch_size, n_inputs, height, width, im_channel = args.batch_size, args.num_inputs args.im_size, args.im_size, 3
+    batch_size, n_inputs, height, width, im_channel = args.batch_size, args.num_inputs, args.image_size, args.image_size, 3
     idx = numpy.random.permutation(len(meta))[0:batch_size]
     im_input = numpy.zeros((batch_size, im_channel * n_inputs, height, width))
     im_output = numpy.zeros((batch_size, im_channel, height, width))
@@ -91,7 +91,7 @@ def display(images1, images2, images3):
 def unit_test():
     m_dict, reverse_m_dict, m_kernel = motion_dict(1)
     args = learning_args.parse_args()
-    meta = get_meta()
+    meta = get_meta(args)
     im_input, im_output = generate_batch(args, meta)
     if True:
         im1 = im_input[:, 0:3, :, :]
