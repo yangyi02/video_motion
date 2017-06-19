@@ -47,6 +47,8 @@ if __name__ == '__main__':
             new_width = size
             new_height = int(round(float(size) / im.shape[1] * im.shape[0]))
         # It is best to use cv2.INTER_AREA when shrinking an image
+        # I didn't see significant difference by using a Gaussian Blur before resize
+        # im = cv2.GaussianBlur(im, (5, 5), 0)
         im = cv2.resize(im, (new_width, new_height), interpolation=cv2.INTER_AREA)
         new_image_name = os.path.join(output_dir, image_name)
         cv2.imwrite(new_image_name, im)
