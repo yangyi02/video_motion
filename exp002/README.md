@@ -15,8 +15,8 @@ motion range = 2 corresponds to 25+1 motion classes.
 motion range = 3 corresponds to 49+1 motion classes.
 motion range = 5 corresponds to 121+1 motion classes.
 
-input: multiple previous frames (i.e. 28x28x3x5)
-output: local motion (i.e. 28x28x10) and next frame (i.e. 28x28x3)
+input: multiple previous frames (i.e. 64x64x3x4)
+output: local motion (i.e. 64x64x10) and next frame (i.e. 64x64x3) and occlusion disappear prediction (i.e. 64x64x1)
 
 | Local motion | Training Loss (%) |
 | ------------- | ----------- | ----------- |
@@ -27,3 +27,5 @@ output: local motion (i.e. 28x28x10) and next frame (i.e. 28x28x3)
 
 Take Home Message:
 
+From the visualization, it can be seen the predicted image has much smaller difference than previous frame.
+However, the flow estimation is not very beautiful. One possible reason is because there are only discrete number of flow.
