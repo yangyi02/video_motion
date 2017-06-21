@@ -42,11 +42,29 @@ def test_unsupervised(args, model, meta, m_kernel, reverse_m_dict):
         if args.display:
             m_range = args.motion_range
             pred_motion = motion.max(1)[1]
-            visualize(im_input_last, im_output, im_pred, pred_motion, disappear, m_range, reverse_m_dict)
+            flow = motion2flow(F.softmax(motion), reverse_m_dict)
+            visualize(im_input_last, im_output, im_pred, pred_motion, disappear, flow, m_range, reverse_m_dict)
         test_loss.append(loss.data[0])
     test_loss = numpy.mean(numpy.asarray(test_loss))
     logging.info('average testing loss: %.2f', test_loss)
     return test_loss
+
+
+def motion2flow(motion, reverse_m_dict):
+    [batch_size, num_class, height, width] = motion.size()
+    kernel_x = Variable(torch.zeros(batch_size, num_class - 1, height, width))
+    kernel_y = Variable(torch.zeros(batch_size, num_class - 1, height, width))
+    if torch.cuda.is_available():
+        kernel_x = kernel_x.cuda()
+        kernel_y = kernel_y.cuda()
+    for i in range(num_class - 1):
+        (m_x, m_y) = reverse_m_dict[i]
+        kernel_x[:, i, :, :] = m_x
+        kernel_y[:, i, :, :] = m_y
+    flow = Variable(torch.zeros(batch_size, 2, height, width))
+    flow[:, 0, :, :] = (motion[:, :-1, :, :] * kernel_x).sum(1)
+    flow[:, 1, :, :] = (motion[:, :-1, :, :] * kernel_y).sum(1)
+    return flow
 
 
 def construct_image(im, motion, disappear, m_range, m_kernel):
