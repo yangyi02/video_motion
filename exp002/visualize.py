@@ -1,6 +1,7 @@
 import numpy
 import cv2
 import matplotlib.pyplot as plt
+import matplotlib.colors as cl
 
 import sys
 sys.path.append('../OpticalFlowToolkit/lib')
