@@ -6,6 +6,8 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.autograd import Variable
 import torch.nn.functional as F
+from PIL import Image
+import math
 
 from learning_args import parse_args
 from data import motion_dict, get_meta, generate_batch
@@ -110,6 +112,68 @@ def train_unsupervised(args, model, meta, m_kernel, reverse_m_dict):
     return model
 
 
+def test_video(args, model, meta, m_kernel, reverse_m_dict):
+    input_video_path = args.input_video_path
+    output_flow_path = args.output_flow_path
+    if not os.path.exists(output_flow_path):
+        os.mkdir(output_flow_path)
+    for sub_dir in os.listdir(input_video_path):
+        if not os.path.exists(os.path.join(output_flow_path, sub_dir)):
+            os.mkdir(os.path.join(output_flow_path, sub_dir))
+        test_one_video(args, model, sub_dir, meta, m_kernel, reverse_m_dict)
+
+
+def test_one_video(args, model, sub_dir, meta, m_kernel, reverse_m_dict):
+    files = os.listdir(os.path.join(args.input_video_path, sub_dir))
+    files.sort()
+    n_inputs, im_channel = args.num_inputs, 3
+    for i in range(len(files)):
+        image_file = os.path.join(args.input_video_path, sub_dir, files[i])
+        im = numpy.array(Image.open(image_file)) / 255.0
+        im_height, im_width = im.shape[0], im.shape[1]
+        height = int(math.ceil(float(im_height) / args.image_size)) * args.image_size
+        width = int(math.ceil(float(im_width) / args.image_size)) * args.image_size
+        im = im.transpose((2, 0, 1))
+        if i == 0:
+            im_input = numpy.zeros((1, im_channel * n_inputs, height, width))
+        if i < args.num_inputs:
+            im_input[0, i * im_channel:(i + 1) * im_channel, :im_height, :im_width] = im
+            continue
+        else:
+            im_input[0, :(args.num_inputs - 1) * im_channel, :, :] = im_input[0, im_channel:, :, :]
+            im_input[0, -im_channel:, :im_height, :im_width] = im
+        im_input_torch = Variable(torch.from_numpy(im_input).float())
+        if torch.cuda.is_available():
+            im_input_torch = im_input_torch.cuda()
+        motion, disappear = model(im_input_torch)
+        flow = motion2flow(F.softmax(motion), reverse_m_dict)
+        flow = flow[0].cpu().data.numpy().transpose(1, 2, 0)
+        flow = flow[:im_height, :im_width, :]
+        file_name = os.path.splitext(files[i])[0] + '.flo'
+        flow_file = os.path.join(args.output_flow_path, sub_dir, file_name)
+        write_flow(flow, flow_file)
+        logging.info('%s, %s' % (image_file, flow_file))
+
+
+def write_flow(flow, filename):
+    """
+    write optical flow in Middlebury .flo format
+    :param flow: optical flow map
+    :param filename: optical flow file path to be saved
+    :return: None
+    """
+    f = open(filename, 'wb')
+    magic = numpy.array([202021.25], dtype=numpy.float32)
+    (height, width) = flow.shape[0:2]
+    w = numpy.array([width], dtype=numpy.int32)
+    h = numpy.array([height], dtype=numpy.int32)
+    magic.tofile(f)
+    w.tofile(f)
+    h.tofile(f)
+    flow.tofile(f)
+    f.close()
+
+
 def main():
     args = parse_args()
     logging.info(args)
@@ -127,6 +191,9 @@ def main():
     if args.test:
         model.load_state_dict(torch.load(args.init_model_path))
         test_unsupervised(args, model, meta, m_kernel, reverse_m_dict)
+    if args.test_video:
+        model.load_state_dict(torch.load(args.init_model_path))
+        test_video(args, model, meta, m_kernel, reverse_m_dict)
 
 if __name__ == '__main__':
     main()
