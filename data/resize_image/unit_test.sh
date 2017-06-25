@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-INPUT_DIR=./test
-OUTPUT_DIR=./test-64
+INPUT_DIR=./unit_test
+OUTPUT_DIR=./unit_test_64
 FILE_LIST=test_file_list
 SIZE=64
 
