@@ -4,9 +4,7 @@ import pickle
 import get_argument
 
 
-def get_discontinue_idx(args):
-    meta_file = args.second_meta_file
-    discontinue_file = args.discontinue_file
+def get_discontinue_idx(meta_file='mpii_meta_2.pkl', discontinue_file='mpii_discontinue.txt'):
     meta = pickle.load(open(meta_file))
     handle = open(discontinue_file, 'w')
     for k, v in meta.iteritems():
