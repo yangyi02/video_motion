@@ -1,0 +1,1 @@
+[INFO 2017-06-21 17:38:06,456 main.py:177] Namespace(batch_size=32, display=False, image_size=64, init_model_path='./model/final.pth', input_video_path='./video', learning_rate=0.01, method='unsupervised', motion_range=5, num_inputs=4, output_flow_path='./flow', save_dir='./model', test=False, test_epoch=100, test_interval=500, test_video=True, train=False, train_epoch=1000)
