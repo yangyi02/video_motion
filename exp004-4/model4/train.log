@@ -1,0 +1,123 @@
+[INFO 2017-06-30 00:34:26,142 main.py:175] Namespace(batch_size=32, display=False, flow_dir='flow', flow_video_dir='flow-video', flow_video_fps=1, image_size=64, init_model_path='', learning_rate=0.001, method='unsupervised', motion_range=4, num_channel=3, num_inputs=2, save_dir='./model', test=False, test_dir='/home/yi/Downloads/mpii-test-64', test_epoch=10, test_interval=100, test_video=False, train=True, train_dir='/home/yi/Downloads/mpii-test-64', train_epoch=100000)
+[INFO 2017-06-30 00:34:31,939 main.py:57] epoch 0, training loss: 41339.12, average training loss: 41339.12, base loss: 16083.67
+[INFO 2017-06-30 00:34:35,366 main.py:57] epoch 1, training loss: 30616.62, average training loss: 35977.87, base loss: 14831.14
+[INFO 2017-06-30 00:34:38,799 main.py:57] epoch 2, training loss: 26791.18, average training loss: 32915.64, base loss: 15173.22
+[INFO 2017-06-30 00:34:42,222 main.py:57] epoch 3, training loss: 23819.82, average training loss: 30641.68, base loss: 15136.51
+[INFO 2017-06-30 00:34:45,673 main.py:57] epoch 4, training loss: 20129.10, average training loss: 28539.17, base loss: 15342.96
+[INFO 2017-06-30 00:34:49,176 main.py:57] epoch 5, training loss: 18046.98, average training loss: 26790.47, base loss: 15244.92
+[INFO 2017-06-30 00:34:52,616 main.py:57] epoch 6, training loss: 16938.06, average training loss: 25382.98, base loss: 15370.26
+[INFO 2017-06-30 00:34:56,100 main.py:57] epoch 7, training loss: 14816.30, average training loss: 24062.15, base loss: 15401.97
+[INFO 2017-06-30 00:34:59,611 main.py:57] epoch 8, training loss: 14190.70, average training loss: 22965.32, base loss: 15385.99
+[INFO 2017-06-30 00:35:03,351 main.py:57] epoch 9, training loss: 14845.68, average training loss: 22153.36, base loss: 15517.35
+[INFO 2017-06-30 00:35:07,575 main.py:57] epoch 10, training loss: 12760.97, average training loss: 21299.50, base loss: 15511.62
+[INFO 2017-06-30 00:35:11,817 main.py:57] epoch 11, training loss: 11766.45, average training loss: 20505.08, base loss: 15468.69
+[INFO 2017-06-30 00:35:16,068 main.py:57] epoch 12, training loss: 11442.54, average training loss: 19807.96, base loss: 15427.64
+[INFO 2017-06-30 00:35:20,360 main.py:57] epoch 13, training loss: 12340.67, average training loss: 19274.59, base loss: 15526.09
+[INFO 2017-06-30 00:35:24,587 main.py:57] epoch 14, training loss: 11374.52, average training loss: 18747.91, base loss: 15513.54
+[INFO 2017-06-30 00:35:28,871 main.py:57] epoch 15, training loss: 11591.74, average training loss: 18300.65, base loss: 15560.55
+[INFO 2017-06-30 00:35:33,095 main.py:57] epoch 16, training loss: 10388.75, average training loss: 17835.25, base loss: 15494.42
+[INFO 2017-06-30 00:35:37,355 main.py:57] epoch 17, training loss: 10229.36, average training loss: 17412.70, base loss: 15449.10
+[INFO 2017-06-30 00:35:41,558 main.py:57] epoch 18, training loss: 10214.23, average training loss: 17033.83, base loss: 15422.48
+[INFO 2017-06-30 00:35:45,840 main.py:57] epoch 19, training loss: 11809.68, average training loss: 16772.62, base loss: 15486.90
+[INFO 2017-06-30 00:35:50,084 main.py:57] epoch 20, training loss: 10101.95, average training loss: 16454.97, base loss: 15449.98
+[INFO 2017-06-30 00:35:54,334 main.py:57] epoch 21, training loss: 13274.08, average training loss: 16310.39, base loss: 15604.46
+[INFO 2017-06-30 00:35:58,571 main.py:57] epoch 22, training loss: 10880.03, average training loss: 16074.28, base loss: 15614.98
+[INFO 2017-06-30 00:36:02,800 main.py:57] epoch 23, training loss: 11584.83, average training loss: 15887.22, base loss: 15654.14
+[INFO 2017-06-30 00:36:07,029 main.py:57] epoch 24, training loss: 11556.40, average training loss: 15713.99, base loss: 15693.27
+[INFO 2017-06-30 00:36:11,291 main.py:57] epoch 25, training loss: 12249.16, average training loss: 15580.73, base loss: 15774.56
+[INFO 2017-06-30 00:36:15,530 main.py:57] epoch 26, training loss: 10351.49, average training loss: 15387.05, base loss: 15752.79
+[INFO 2017-06-30 00:36:19,778 main.py:57] epoch 27, training loss: 10417.25, average training loss: 15209.56, base loss: 15743.12
+[INFO 2017-06-30 00:36:24,063 main.py:57] epoch 28, training loss: 12051.55, average training loss: 15100.66, base loss: 15811.47
+[INFO 2017-06-30 00:36:28,328 main.py:57] epoch 29, training loss: 11927.66, average training loss: 14994.90, base loss: 15851.76
+[INFO 2017-06-30 00:36:32,581 main.py:57] epoch 30, training loss: 9488.52, average training loss: 14817.27, base loss: 15798.44
+[INFO 2017-06-30 00:36:36,835 main.py:57] epoch 31, training loss: 10797.25, average training loss: 14691.64, base loss: 15811.63
+[INFO 2017-06-30 00:36:41,075 main.py:57] epoch 32, training loss: 11431.00, average training loss: 14592.84, base loss: 15849.49
+[INFO 2017-06-30 00:36:45,361 main.py:57] epoch 33, training loss: 11662.01, average training loss: 14506.64, base loss: 15873.29
+[INFO 2017-06-30 00:36:49,631 main.py:57] epoch 34, training loss: 8871.15, average training loss: 14345.62, base loss: 15799.07
+[INFO 2017-06-30 00:36:53,866 main.py:57] epoch 35, training loss: 11364.56, average training loss: 14262.82, base loss: 15841.64
+[INFO 2017-06-30 00:36:58,135 main.py:57] epoch 36, training loss: 11157.28, average training loss: 14178.88, base loss: 15860.24
+[INFO 2017-06-30 00:37:02,404 main.py:57] epoch 37, training loss: 9141.24, average training loss: 14046.31, base loss: 15813.48
+[INFO 2017-06-30 00:37:06,619 main.py:57] epoch 38, training loss: 11658.60, average training loss: 13985.09, base loss: 15850.94
+[INFO 2017-06-30 00:37:10,874 main.py:57] epoch 39, training loss: 10785.74, average training loss: 13905.11, base loss: 15854.84
+[INFO 2017-06-30 00:37:15,129 main.py:57] epoch 40, training loss: 11868.18, average training loss: 13855.42, base loss: 15898.91
+[INFO 2017-06-30 00:37:19,402 main.py:57] epoch 41, training loss: 11057.23, average training loss: 13788.80, base loss: 15914.31
+[INFO 2017-06-30 00:37:23,624 main.py:57] epoch 42, training loss: 10805.07, average training loss: 13719.41, base loss: 15934.96
+[INFO 2017-06-30 00:37:27,866 main.py:57] epoch 43, training loss: 10094.31, average training loss: 13637.02, base loss: 15922.27
+[INFO 2017-06-30 00:37:32,149 main.py:57] epoch 44, training loss: 10681.55, average training loss: 13571.35, base loss: 15919.58
+[INFO 2017-06-30 00:37:36,354 main.py:57] epoch 45, training loss: 11739.24, average training loss: 13531.52, base loss: 15956.70
+[INFO 2017-06-30 00:37:40,593 main.py:57] epoch 46, training loss: 10174.80, average training loss: 13460.10, base loss: 15944.33
+[INFO 2017-06-30 00:37:44,833 main.py:57] epoch 47, training loss: 10020.79, average training loss: 13388.45, base loss: 15925.72
+[INFO 2017-06-30 00:37:49,077 main.py:57] epoch 48, training loss: 9910.69, average training loss: 13317.47, base loss: 15915.82
+[INFO 2017-06-30 00:37:53,316 main.py:57] epoch 49, training loss: 9457.12, average training loss: 13240.26, base loss: 15895.42
+[INFO 2017-06-30 00:37:57,573 main.py:57] epoch 50, training loss: 8894.74, average training loss: 13155.06, base loss: 15842.46
+[INFO 2017-06-30 00:38:01,860 main.py:57] epoch 51, training loss: 11730.48, average training loss: 13127.66, base loss: 15881.22
+[INFO 2017-06-30 00:38:06,113 main.py:57] epoch 52, training loss: 9605.48, average training loss: 13061.21, base loss: 15860.43
+[INFO 2017-06-30 00:38:10,416 main.py:57] epoch 53, training loss: 9489.92, average training loss: 12995.07, base loss: 15843.43
+[INFO 2017-06-30 00:38:14,702 main.py:57] epoch 54, training loss: 9584.22, average training loss: 12933.05, base loss: 15832.15
+[INFO 2017-06-30 00:38:18,949 main.py:57] epoch 55, training loss: 9488.99, average training loss: 12871.55, base loss: 15808.98
+[INFO 2017-06-30 00:38:23,194 main.py:57] epoch 56, training loss: 11331.50, average training loss: 12844.54, base loss: 15840.42
+[INFO 2017-06-30 00:38:27,423 main.py:57] epoch 57, training loss: 10258.71, average training loss: 12799.95, base loss: 15848.46
+[INFO 2017-06-30 00:38:31,709 main.py:57] epoch 58, training loss: 10461.69, average training loss: 12760.32, base loss: 15864.62
+[INFO 2017-06-30 00:38:35,960 main.py:57] epoch 59, training loss: 8825.30, average training loss: 12694.74, base loss: 15830.65
+[INFO 2017-06-30 00:38:40,221 main.py:57] epoch 60, training loss: 11424.53, average training loss: 12673.91, base loss: 15860.64
+[INFO 2017-06-30 00:38:44,455 main.py:57] epoch 61, training loss: 10231.70, average training loss: 12634.52, base loss: 15875.79
+[INFO 2017-06-30 00:38:48,725 main.py:57] epoch 62, training loss: 10239.45, average training loss: 12596.51, base loss: 15883.55
+[INFO 2017-06-30 00:38:52,999 main.py:57] epoch 63, training loss: 10370.95, average training loss: 12561.73, base loss: 15902.16
+[INFO 2017-06-30 00:38:57,266 main.py:57] epoch 64, training loss: 10144.64, average training loss: 12524.55, base loss: 15908.46
+[INFO 2017-06-30 00:39:01,495 main.py:57] epoch 65, training loss: 9587.68, average training loss: 12480.05, base loss: 15897.34
+[INFO 2017-06-30 00:39:05,706 main.py:57] epoch 66, training loss: 9579.42, average training loss: 12436.75, base loss: 15898.10
+[INFO 2017-06-30 00:39:09,984 main.py:57] epoch 67, training loss: 9843.39, average training loss: 12398.62, base loss: 15900.04
+[INFO 2017-06-30 00:39:14,242 main.py:57] epoch 68, training loss: 10805.39, average training loss: 12375.53, base loss: 15922.75
+[INFO 2017-06-30 00:39:18,519 main.py:57] epoch 69, training loss: 9066.54, average training loss: 12328.26, base loss: 15910.51
+[INFO 2017-06-30 00:39:22,743 main.py:57] epoch 70, training loss: 9487.08, average training loss: 12288.24, base loss: 15903.79
+[INFO 2017-06-30 00:39:26,983 main.py:57] epoch 71, training loss: 10503.51, average training loss: 12263.45, base loss: 15912.85
+[INFO 2017-06-30 00:39:31,229 main.py:57] epoch 72, training loss: 9940.04, average training loss: 12231.62, base loss: 15918.36
+[INFO 2017-06-30 00:39:35,489 main.py:57] epoch 73, training loss: 9989.09, average training loss: 12201.32, base loss: 15922.51
+[INFO 2017-06-30 00:39:39,759 main.py:57] epoch 74, training loss: 10288.71, average training loss: 12175.82, base loss: 15931.74
+[INFO 2017-06-30 00:39:44,040 main.py:57] epoch 75, training loss: 10136.31, average training loss: 12148.98, base loss: 15945.83
+[INFO 2017-06-30 00:39:48,261 main.py:57] epoch 76, training loss: 11057.26, average training loss: 12134.80, base loss: 15977.26
+[INFO 2017-06-30 00:39:52,527 main.py:57] epoch 77, training loss: 10190.28, average training loss: 12109.87, base loss: 16001.90
+[INFO 2017-06-30 00:39:56,778 main.py:57] epoch 78, training loss: 10586.58, average training loss: 12090.59, base loss: 16025.71
+[INFO 2017-06-30 00:40:01,075 main.py:57] epoch 79, training loss: 9640.69, average training loss: 12059.97, base loss: 16020.42
+[INFO 2017-06-30 00:40:05,380 main.py:57] epoch 80, training loss: 9842.28, average training loss: 12032.59, base loss: 16034.61
+[INFO 2017-06-30 00:40:09,612 main.py:57] epoch 81, training loss: 9448.34, average training loss: 12001.07, base loss: 16035.91
+[INFO 2017-06-30 00:40:13,929 main.py:57] epoch 82, training loss: 9401.40, average training loss: 11969.75, base loss: 16031.26
+[INFO 2017-06-30 00:40:18,197 main.py:57] epoch 83, training loss: 10091.67, average training loss: 11947.39, base loss: 16048.56
+[INFO 2017-06-30 00:40:22,453 main.py:57] epoch 84, training loss: 8678.50, average training loss: 11908.94, base loss: 16030.46
+[INFO 2017-06-30 00:40:26,712 main.py:57] epoch 85, training loss: 9489.55, average training loss: 11880.80, base loss: 16040.51
+[INFO 2017-06-30 00:40:30,948 main.py:57] epoch 86, training loss: 9781.75, average training loss: 11856.68, base loss: 16054.69
+[INFO 2017-06-30 00:40:35,218 main.py:57] epoch 87, training loss: 8539.09, average training loss: 11818.98, base loss: 16029.22
+[INFO 2017-06-30 00:40:39,446 main.py:57] epoch 88, training loss: 9671.82, average training loss: 11794.85, base loss: 16023.91
+[INFO 2017-06-30 00:40:43,738 main.py:57] epoch 89, training loss: 9625.30, average training loss: 11770.75, base loss: 16021.04
+[INFO 2017-06-30 00:40:48,034 main.py:57] epoch 90, training loss: 9496.50, average training loss: 11745.75, base loss: 16019.43
+[INFO 2017-06-30 00:40:52,284 main.py:57] epoch 91, training loss: 9283.83, average training loss: 11718.99, base loss: 16019.64
+[INFO 2017-06-30 00:40:56,544 main.py:57] epoch 92, training loss: 8764.23, average training loss: 11687.22, base loss: 16013.34
+[INFO 2017-06-30 00:41:00,837 main.py:57] epoch 93, training loss: 7898.96, average training loss: 11646.92, base loss: 15996.71
+[INFO 2017-06-30 00:41:05,147 main.py:57] epoch 94, training loss: 10620.46, average training loss: 11636.12, base loss: 16026.91
+[INFO 2017-06-30 00:41:09,393 main.py:57] epoch 95, training loss: 9489.04, average training loss: 11613.75, base loss: 16022.06
+[INFO 2017-06-30 00:41:13,627 main.py:57] epoch 96, training loss: 9417.22, average training loss: 11591.11, base loss: 16025.05
+[INFO 2017-06-30 00:41:17,919 main.py:57] epoch 97, training loss: 9488.02, average training loss: 11569.65, base loss: 16036.65
+[INFO 2017-06-30 00:41:22,186 main.py:57] epoch 98, training loss: 9321.71, average training loss: 11546.94, base loss: 16039.73
+[INFO 2017-06-30 00:41:26,449 main.py:57] epoch 99, training loss: 9054.13, average training loss: 11522.01, base loss: 16040.99
+[INFO 2017-06-30 00:41:26,449 main.py:59] epoch 99, testing
+THCudaCheck FAIL file=/b/wheel/pytorch-src/torch/lib/THC/generic/THCStorage.cu line=66 error=2 : out of memory
+Traceback (most recent call last):
+  File "main.py", line 196, in <module>
+    main()
+  File "main.py", line 187, in main
+    model = train_unsupervised(args, model, m_kernel, reverse_m_dict)
+  File "main.py", line 60, in train_unsupervised
+    best_improve_percent = validate(args, model, m_kernel, reverse_m_dict, best_improve_percent)
+  File "main.py", line 65, in validate
+    improve_percent = test_unsupervised(args, model, m_kernel, reverse_m_dict)
+  File "main.py", line 89, in test_unsupervised
+    im_pred, im_pred_f, m_mask_f, attn_f, im_pred_b, m_mask_b, attn_b = model(im_input_f, im_input_b, ones)
+  File "/usr/local/lib/python2.7/dist-packages/torch/nn/modules/module.py", line 206, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/home/yi/code/video_motion/exp004-4/models.py", line 548, in forward
+    y = torch.cat((x12, x1), 1)
+  File "/usr/local/lib/python2.7/dist-packages/torch/autograd/variable.py", line 841, in cat
+    return Concat(dim)(*iterable)
+  File "/usr/local/lib/python2.7/dist-packages/torch/autograd/_functions/tensor.py", line 310, in forward
+    return torch.cat(inputs, self.dim)
+RuntimeError: cuda runtime error (2) : out of memory at /b/wheel/pytorch-src/torch/lib/THC/generic/THCStorage.cu:66

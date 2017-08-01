@@ -1,0 +1,85 @@
+import os
+import sys
+import numpy
+from PIL import Image
+from learning_args import parse_args
+import flowlib
+import logging
+logging.basicConfig(format='[%(levelname)s %(asctime)s %(filename)s:%(lineno)s] %(message)s',
+                            level=logging.INFO)
+
+
+def create_video(args):
+    image_dir, flow_dir, flow_video_dir = args.test_dir, args.flow_dir, args.flow_video_dir
+    if not os.path.exists(flow_video_dir):
+        os.mkdir(flow_video_dir)
+    for sub_dir in os.listdir(flow_dir):
+        if not os.path.exists(os.path.join(flow_video_dir, sub_dir)):
+            os.mkdir(os.path.join(flow_video_dir, sub_dir))
+        for sub_sub_dir in os.listdir(os.path.join(flow_dir, sub_dir)):
+            if not os.path.exists(os.path.join(flow_video_dir, sub_dir, sub_sub_dir)):
+                os.mkdir(os.path.join(flow_video_dir, sub_dir, sub_sub_dir))
+            image_files = os.listdir(os.path.join(image_dir, sub_dir, sub_sub_dir))
+            image_files.sort(key=lambda f: int(filter(str.isdigit, f)))
+            flow_video_files = image_files
+            image_files = [os.path.join(image_dir, sub_dir, sub_sub_dir, f) for f in image_files]
+            flow_files = os.listdir(os.path.join(flow_dir, sub_dir, sub_sub_dir))
+            flow_files.sort(key=lambda f: int(filter(str.isdigit, f)))
+            flow_files = [os.path.join(flow_dir, sub_dir, sub_sub_dir, f) for f in flow_files]
+            flow_video_files = [os.path.join(flow_video_dir, sub_dir, sub_sub_dir, f) for f in flow_video_files]
+            width, height = create_one_video(args, image_files, flow_files, flow_video_files)
+            flow_video_file = os.path.join(flow_video_dir, sub_dir, sub_sub_dir + '.mp4')
+            cmd_str = "ffmpeg -r %d -f image2 -s %dx%d -pix_fmt yuvj422p -pattern_type glob -i '%s/*.jpg' %s" \
+                      % (args.flow_video_fps, int(float(width) / 2) * 2, int(float(height) / 2) * 2,
+                         os.path.join(flow_video_dir, sub_dir, sub_sub_dir), flow_video_file)
+            os.system(cmd_str)
+
+
+def create_one_video(args, image_files, flow_files, flow_video_files):
+    for i in range(len(image_files)):
+        im = numpy.array(Image.open(image_files[i]))
+        height, width = args.image_size, args.image_size
+        idx_h = (im.shape[0] - height) / 2
+        idx_w = (im.shape[1] - width) / 2
+        im = im[idx_h:idx_h+height, idx_w:idx_w+width, :]
+        flow = flowlib.read_flow(flow_files[i])
+
+        im_width, im_height = im.shape[1], im.shape[0]
+        width, height = get_img_size(1, 2, im_width, im_height)
+        img = numpy.ones((height, width, 3))
+
+        x1, y1, x2, y2 = get_img_coordinate(1, 1, im_width, im_height)
+        img[y1:y2, x1:x2, :] = im / 255.0
+
+        optical_flow = flowlib.visualize_flow(flow)
+        x1, y1, x2, y2 = get_img_coordinate(1, 2, im_width, im_height)
+        img[y1:y2, x1:x2, :] = optical_flow / 255.0
+
+        img = img * 255.0
+        img = img.astype(numpy.uint8)
+        img = Image.fromarray(img)
+        img.save(flow_video_files[i])
+    return width, height
+
+
+def get_img_size(n_row, n_col, im_width, im_height):
+    height = n_row * im_height + (n_row - 1) * int(im_height/10)
+    width = n_col * im_width + (n_col - 1) * int(im_width/10)
+    return width, height
+
+
+def get_img_coordinate(row, col, im_width, im_height):
+    y1 = (row - 1) * im_height + (row - 1) * int(im_height/10)
+    y2 = y1 + im_height
+    x1 = (col - 1) * im_width + (col - 1) * int(im_width/10)
+    x2 = x1 + im_width
+    return x1, y1, x2, y2
+
+
+def main():
+    args = parse_args()
+    logging.info(args)
+    create_video(args)
+
+if __name__ == '__main__':
+    main()
