@@ -1,0 +1,19 @@
+[INFO 2017-07-02 02:01:32,871 main.py:175] Namespace(batch_size=2, display=True, flow_dir='flow', flow_video_dir='flow-video', flow_video_fps=1, image_size=64, init_model_path='./model/final.pth', learning_rate=0.01, method='unsupervised', motion_range=4, num_channel=3, num_inputs=2, save_dir='./model', test=True, test_dir='/home/yi/Downloads/mpii-test-64', test_epoch=1, test_interval=500, test_video=False, train=False, train_dir='train_images', train_epoch=1000)
+[INFO 2017-07-02 02:01:36,079 main.py:104] average testing loss: 918.78, base loss: 1264.66
+[INFO 2017-07-02 02:01:36,079 main.py:105] improve_loss: 345.88, improve_percent: 0.27
+max flow: 4.2426
+flow range:
+u = -1.746 .. 2.913
+v = -1.746 .. 0.414
+max flow: 4.2426
+flow range:
+u = -2.448 .. 2.102
+v = -0.437 .. 0.895
+max flow: 8.4853
+flow range:
+u = -2.967 .. 4.490
+v = -5.504 .. 1.808
+max flow: 22.6274
+flow range:
+u = -7.521 .. 1.851
+v = -15.795 .. 7.781
