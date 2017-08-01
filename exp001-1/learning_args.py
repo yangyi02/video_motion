@@ -18,7 +18,10 @@ def parse_args():
     arg_parser.add_argument('--init_model_path', default='')
     arg_parser.add_argument('--learning_rate', type=float, default=0.01)
     arg_parser.add_argument('--motion_range', type=int, default=1)
-    arg_parser.add_argument('--image_size', type=int, default=11)
+    arg_parser.add_argument('--image_size', type=int, default=64)
+    arg_parser.add_argument('--num_channel', type=int, default=1)
     arg_parser.add_argument('--num_inputs', type=int, default=2)
+    arg_parser.add_argument('--train_dir', default='/home/yi/Downloads/robot-64')
+    arg_parser.add_argument('--test_dir', default='/home/yi/Downloads/robot-64')
     args = arg_parser.parse_args()
     return args

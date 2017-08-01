@@ -3,13 +3,14 @@ from PIL import Image
 import numpy
 import pickle
 import matplotlib.pyplot as plt
+import get_argument
 
 
-def get_diff_idx():
-    input_dir = '/home/yi/Downloads/mpii-64'
-    meta_file = 'mpii_meta.pkl'
-    output_meta_file = 'mpii_meta_2.pkl'
-    diff_file = open('./mpii_diff', 'w')
+def get_diff_idx(args):
+    input_dir = args.input_dir
+    meta_file = args.meta_file
+    output_meta_file = args.second_meta_file
+    diff_file = open(args.image_diff_file, 'w')
     meta = pickle.load(open(meta_file))
     for k, v in meta.iteritems():
         image_dir, sub_dir, file_names = v[0], v[1], v[2]
@@ -23,7 +24,8 @@ def get_diff_idx():
             im = numpy.array(Image.open(image_name)) / 255.0
             im_diff = numpy.abs(im - im_old)
             if False:
-                display(im_old, im, im_diff)
+                img_size = args.image_size
+                display(im_old, im, im_diff, img_size)
             im_diff = im_diff.sum()
             im_diff_sum.append(im_diff)
             im_diff_str.append("{:.2f}".format(im_diff))
@@ -34,8 +36,7 @@ def get_diff_idx():
     pickle.dump(meta, open(output_meta_file, 'w'))
 
 
-def display(im_old, im, im_diff):
-    img_size = 64
+def display(im_old, im, im_diff, img_size):
     width, height = get_img_size(1, 3, img_size)
     img = numpy.ones((height, width, 3))
 
@@ -47,8 +48,6 @@ def display(im_old, im, im_diff):
 
     x1, y1, x2, y2 = get_img_coordinate(1, 3, img_size)
     img[y1:y2, x1:x2, :] = im_diff[:img_size, :img_size, :]
-
-    # print('image diff: %.2f' % im_diff.sum())
 
     plt.figure(1)
     plt.imshow(img)
@@ -71,7 +70,8 @@ def get_img_coordinate(row, col, img_size):
 
 
 def main():
-    get_diff_idx()
+    args = get_argument.parse_args()
+    get_diff_idx(args)
 
 if __name__ == '__main__':
     main()

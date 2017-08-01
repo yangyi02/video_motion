@@ -39,3 +39,6 @@ Two messages:
 2. Larger motion ranges better
 
 However, the reconstructed frame still look very blur and many motions are not predicted very accurately.
+
+The model simply overfit to the training dataset, even using one frame can lead to the prediction of next frame.
+We need a better thinking on how to model this, maybe this dataset is not good for traing motion prediction.

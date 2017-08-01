@@ -1,11 +1,12 @@
 import os
 import numpy
 import pickle
+import get_argument
 
 
-def get_meta():
-    input_dir = '/home/yi/Downloads/mpii-64'
-    output_file = 'mpii_meta.pkl'
+def get_meta(args):
+    input_dir = args.input_dir
+    output_file = args.meta_file
     meta = {}
     cnt = 0
     image_dirs = os.listdir(input_dir)
@@ -21,7 +22,8 @@ def get_meta():
 
 
 def main():
-    get_meta()
+    args = get_argument.parse_args()
+    get_meta(args)
 
 if __name__ == '__main__':
     main()
