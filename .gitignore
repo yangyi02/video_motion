@@ -7,7 +7,7 @@
 *.list
 robot-64/
 robot-128/
-mpii-64/
+mpii-64*/
 mpii-128/
 video/
 flow/
